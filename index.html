@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Haz Store is a modern fictional electronics store built with HTML, CSS and JavaScript.">
+    <meta name="theme-color" content="#2563eb">
+    <title>Haz Store | Modern electronics</title>
+
+    <!-- link preview when the site is shared (linkedin, whatsapp, etc.) -->
+    <meta property="og:title" content="Haz Store | Modern electronics">
+    <meta property="og:description" content="A responsive e-commerce frontend built with HTML, CSS and vanilla JavaScript.">
+    <meta property="og:type" content="website">
+
+    <!-- favicon (blue square with a lightning bolt, same as the logo) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Cpath d='M18 5 9 18h6l-1 9 9-13h-6z' fill='white'/%3E%3C/svg%3E">
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- main stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- navbar -->
+    <header class="header">
+        <div class="container nav">
+            <a href="#home" class="logo" aria-label="Haz Store home">
+                <span class="logo-mark"><i class="fa-solid fa-bolt"></i></span>
+                <span>Haz<span class="logo-light">Store</span></span>
+            </a>
+
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <a href="#home">Home</a>
+                <a href="#shop">Shop</a>
+                <a href="#categories">Categories</a>
+                <a href="#deals">Deals</a>
+                <a href="#about">About</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="icon-btn" data-action="open-search" aria-label="Search products">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button class="icon-btn" data-action="open-wishlist" aria-label="Open wishlist">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="badge-count" id="wishlistCount" hidden>0</span>
+                </button>
+                <button class="icon-btn" data-action="open-cart" aria-label="Open shopping cart">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="badge-count" id="cartCount" hidden>0</span>
+                </button>
+                <button class="icon-btn profile-btn" data-action="open-profile" aria-label="User profile">
+                    <i class="fa-regular fa-user"></i>
+                </button>
+                <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- hero -->
+        <section class="hero" id="home">
+            <div class="container hero-inner">
+                <div class="hero-text">
+                    <span class="hero-badge"><i class="fa-solid fa-fire"></i> New arrivals · Up to 30% off selected items</span>
+                    <h1>Upgrade Your Everyday <span>Tech</span></h1>
+                    <p>Discover modern electronics and accessories designed for work, gaming, and everyday life.</p>
+                    <div class="hero-buttons">
+                        <a href="#shop" class="btn btn-primary">Shop now <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#deals" class="btn btn-outline">View deals</a>
+                    </div>
+                </div>
+
+                <!-- hero image placeholder (replace with your own image if you like) -->
+                <div class="hero-visual" aria-hidden="true">
+                    <i class="fa-solid fa-headphones-simple hero-icon"></i>
+                    <div class="hero-card hero-card-1">
+                        <i class="fa-solid fa-truck-fast"></i> Free shipping over RM300
+                    </div>
+                    <div class="hero-card hero-card-2">
+                        <i class="fa-solid fa-star"></i> Rated 4.8 by customers
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- categories -->
+        <section class="section" id="categories">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Shop by category</h2>
+                        <p class="section-subtitle">Pick a category to filter the products.</p>
+                    </div>
+                </div>
+                <div class="category-grid" id="categoryGrid"></div>
+            </div>
+        </section>
+
+        <!-- featured products -->
+        <section class="section section-alt" id="featured">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Featured products</h2>
+                        <p class="section-subtitle">Our favorite picks this season.</p>
+                    </div>
+                </div>
+                <div class="product-grid" id="featuredGrid"></div>
+            </div>
+        </section>
+
+        <!-- shop -->
+        <section class="section" id="shop">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Shop all products</h2>
+                        <p class="section-subtitle">Search, filter and sort to find what you need.</p>
+                    </div>
+                </div>
+
+                <div class="shop-toolbar">
+                    <div class="search-box">
+                        <label for="searchInput" class="visually-hidden">Search products</label>
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="search" id="searchInput" class="form-control" placeholder="Search by product name or category">
+                    </div>
+
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="categoryFilter">Category</label>
+                            <select id="categoryFilter" class="form-control"></select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="priceFilter">Price range</label>
+                            <select id="priceFilter" class="form-control">
+                                <option value="all">All prices</option>
+                                <option value="under100">Under RM100</option>
+                                <option value="100-300">RM100 - RM300</option>
+                                <option value="300-1000">RM300 - RM1000</option>
+                                <option value="above1000">Above RM1000</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="ratingFilter">Rating</label>
+                            <select id="ratingFilter" class="form-control">
+                                <option value="all">All ratings</option>
+                                <option value="4">4 stars and above</option>
+                                <option value="3">3 stars and above</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="availabilityFilter">Availability</label>
+                            <select id="availabilityFilter" class="form-control">
+                                <option value="all">All</option>
+                                <option value="in-stock">In stock</option>
+                                <option value="out-of-stock">Out of stock</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="sortSelect">Sort by</label>
+                            <select id="sortSelect" class="form-control">
+                                <option value="featured">Featured</option>
+                                <option value="price-low">Price: low to high</option>
+                                <option value="price-high">Price: high to low</option>
+                                <option value="rating">Rating</option>
+                                <option value="name">Name: A-Z</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <button class="btn btn-outline btn-full" id="clearFilters">Clear filters</button>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="results-count" id="resultsCount" aria-live="polite"></p>
+                <div class="product-grid" id="productGrid"></div>
+            </div>
+        </section>
+
+        <!-- deals -->
+        <section class="section section-alt" id="deals">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Hot deals</h2>
+                        <p class="section-subtitle">Biggest discounts right now.</p>
+                    </div>
+                </div>
+                <div class="product-grid" id="dealsGrid"></div>
+            </div>
+        </section>
+
+        <!-- recently viewed -->
+        <section class="section" id="recent">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Recently viewed</h2>
+                        <p class="section-subtitle">Products you opened recently.</p>
+                    </div>
+                </div>
+                <div class="product-grid" id="recentGrid"></div>
+            </div>
+        </section>
+
+        <!-- checkout -->
+        <section class="section section-alt" id="checkout">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Checkout</h2>
+                        <p class="section-subtitle">This is a demo checkout. No real payment is made.</p>
+                    </div>
+                </div>
+
+                <div class="order-success" id="orderSuccess" hidden>
+                    <i class="fa-solid fa-circle-check"></i>
+                    <div>
+                        <h3>Order placed successfully.</h3>
+                        <p id="orderMessage"></p>
+                    </div>
+                </div>
+
+                <div class="checkout-layout">
+                    <form class="checkout-form" id="checkoutForm" novalidate>
+
+                        <h3 class="form-title">Customer information</h3>
+                        <div class="form-grid">
+                            <div class="form-group full">
+                                <label for="fullName">Full name</label>
+                                <input type="text" id="fullName" class="form-control" autocomplete="name">
+                                <span class="error-message" id="fullNameError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" class="form-control" autocomplete="email">
+                                <span class="error-message" id="emailError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone number</label>
+                                <input type="tel" id="phone" class="form-control" autocomplete="tel" placeholder="012-345 6789">
+                                <span class="error-message" id="phoneError"></span>
+                            </div>
+                        </div>
+
+                        <h3 class="form-title">Shipping address</h3>
+                        <div class="form-grid">
+                            <div class="form-group full">
+                                <label for="address">Address</label>
+                                <input type="text" id="address" class="form-control" autocomplete="street-address">
+                                <span class="error-message" id="addressError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" class="form-control" autocomplete="address-level2">
+                                <span class="error-message" id="cityError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <select id="state" class="form-control">
+                                    <option value="">Select state</option>
+                                    <option value="Johor">Johor</option>
+                                    <option value="Kedah">Kedah</option>
+                                    <option value="Kelantan">Kelantan</option>
+                                    <option value="Kuala Lumpur">Kuala Lumpur</option>
+                                    <option value="Labuan">Labuan</option>
+                                    <option value="Melaka">Melaka</option>
+                                    <option value="Negeri Sembilan">Negeri Sembilan</option>
+                                    <option value="Pahang">Pahang</option>
+                                    <option value="Penang">Penang</option>
+                                    <option value="Perak">Perak</option>
+                                    <option value="Perlis">Perlis</option>
+                                    <option value="Putrajaya">Putrajaya</option>
+                                    <option value="Sabah">Sabah</option>
+                                    <option value="Sarawak">Sarawak</option>
+                                    <option value="Selangor">Selangor</option>
+                                    <option value="Terengganu">Terengganu</option>
+                                </select>
+                                <span class="error-message" id="stateError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="postcode">Postcode</label>
+                                <input type="text" id="postcode" class="form-control" inputmode="numeric" autocomplete="postal-code">
+                                <span class="error-message" id="postcodeError"></span>
+                            </div>
+                        </div>
+
+                        <h3 class="form-title">Payment method</h3>
+                        <fieldset class="payment-options">
+                            <legend class="visually-hidden">Choose a payment method</legend>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="Credit/debit card" checked>
+                                <span><i class="fa-regular fa-credit-card"></i> Credit/debit card</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="Online banking">
+                                <span><i class="fa-solid fa-building-columns"></i> Online banking</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="Cash on delivery">
+                                <span><i class="fa-solid fa-money-bill-wave"></i> Cash on delivery</span>
+                            </label>
+                        </fieldset>
+
+                        <button type="submit" class="btn btn-primary btn-full btn-large">Place order</button>
+                    </form>
+
+                    <aside class="order-summary" aria-label="Order summary">
+                        <h3 class="form-title">Order summary</h3>
+                        <ul class="summary-list" id="checkoutItems"></ul>
+                        <div class="totals">
+                            <div class="totals-row"><span>Subtotal</span><span id="checkoutSubtotal">RM0.00</span></div>
+                            <div class="totals-row"><span>Shipping</span><span id="checkoutShipping">RM0.00</span></div>
+                            <div class="totals-row totals-final"><span>Total</span><span id="checkoutTotal">RM0.00</span></div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <!-- about -->
+        <section class="section" id="about">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">About Haz Store</h2>
+                        <p class="section-subtitle">Haz Store is a fictional shop made for a frontend portfolio project. We pretend to sell modern tech that is simple, reliable and fairly priced.</p>
+                    </div>
+                </div>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <i class="fa-solid fa-truck-fast"></i>
+                        <h3>Fast shipping</h3>
+                        <p>Free shipping on orders RM300 and above.</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <h3>1 year warranty</h3>
+                        <p>Every product comes with a simple warranty.</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        <h3>Easy returns</h3>
+                        <p>Changed your mind? Return within 14 days.</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="fa-solid fa-headset"></i>
+                        <h3>Friendly support</h3>
+                        <p>Our team is ready to help you every day.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#home" class="logo logo-footer" aria-label="Haz Store home">
+                        <span class="logo-mark"><i class="fa-solid fa-bolt"></i></span>
+                        <span>Haz<span class="logo-light">Store</span></span>
+                    </a>
+                    <p>Modern electronics and accessories for work, gaming, and everyday life.</p>
+                    <div class="social-links">
+                        <a href="#" data-action="coming-soon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" data-action="coming-soon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" data-action="coming-soon" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" data-action="coming-soon" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="#featured">Featured</a></li>
+                        <li><a href="#shop">Products</a></li>
+                        <li><a href="#deals">Deals</a></li>
+                        <li><a href="#categories">Categories</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#" data-action="coming-soon">Contact</a></li>
+                        <li><a href="#" data-action="coming-soon">Shipping</a></li>
+                        <li><a href="#" data-action="coming-soon">Returns</a></li>
+                        <li><a href="#" data-action="coming-soon">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#" data-action="coming-soon">Careers</a></li>
+                        <li><a href="#" data-action="coming-soon">Privacy policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Haz Store. A fictional store built by Muhamad Hazim Aqil as a frontend portfolio project.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- overlay for drawers -->
+    <div class="overlay" id="overlay" data-action="close-drawer"></div>
+
+    <!-- cart drawer -->
+    <aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping cart">
+        <div class="drawer-header">
+            <h2>Your cart</h2>
+            <button class="icon-btn drawer-close" data-action="close-drawer" aria-label="Close cart">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <ul class="drawer-body" id="cartItems"></ul>
+        <div class="drawer-footer" id="cartFooter" hidden>
+            <p class="shipping-note" id="shippingNote"></p>
+            <div class="totals">
+                <div class="totals-row"><span>Subtotal</span><span id="cartSubtotal">RM0.00</span></div>
+                <div class="totals-row"><span>Shipping</span><span id="cartShipping">RM0.00</span></div>
+                <div class="totals-row totals-final"><span>Total</span><span id="cartTotal">RM0.00</span></div>
+            </div>
+            <button class="btn btn-primary btn-full" data-action="go-checkout">Go to checkout</button>
+            <button class="btn btn-outline btn-full" data-action="clear-cart">Clear cart</button>
+        </div>
+    </aside>
+
+    <!-- wishlist drawer -->
+    <aside class="drawer" id="wishlistDrawer" role="dialog" aria-modal="true" aria-label="Wishlist">
+        <div class="drawer-header">
+            <h2>Your wishlist</h2>
+            <button class="icon-btn drawer-close" data-action="close-drawer" aria-label="Close wishlist">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <ul class="drawer-body" id="wishlistItems"></ul>
+    </aside>
+
+    <!-- product details modal -->
+    <div class="modal" id="productModal" hidden>
+        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" data-action="close-modal" aria-label="Close product details">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="modal-content" id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- toast notifications -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <!-- scripts -->
+    <script src="js/products.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

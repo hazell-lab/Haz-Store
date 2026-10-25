@@ -1,0 +1,255 @@
+// store categories (name and icon)
+const categories = [
+    { name: "Laptops", icon: "fa-solid fa-laptop" },
+    { name: "Smartphones", icon: "fa-solid fa-mobile-screen" },
+    { name: "Headphones", icon: "fa-solid fa-headphones" },
+    { name: "Keyboards", icon: "fa-solid fa-keyboard" },
+    { name: "Mice", icon: "fa-solid fa-computer-mouse" },
+    { name: "Smartwatches", icon: "fa-solid fa-clock" },
+    { name: "Accessories", icon: "fa-solid fa-plug" }
+];
+
+// product list
+// price is the normal price, discount is a percent (0 means no discount)
+const products = [
+    {
+        id: 1,
+        name: "Nova Wireless Headphones",
+        category: "Headphones",
+        price: 249.00,
+        discount: 20,
+        rating: 4.7,
+        stock: 15,
+        image: "assets/images/product-1.jpg",
+        description: "Comfortable over-ear headphones with clear sound, active noise cancelling and 40 hours of battery life.",
+        featured: true
+    },
+    {
+        id: 2,
+        name: "Nova Buds Pro",
+        category: "Headphones",
+        price: 159.00,
+        discount: 0,
+        rating: 4.4,
+        stock: 30,
+        image: "assets/images/product-2.jpg",
+        description: "Compact true wireless earbuds with a pocket-sized charging case and quick pairing.",
+        featured: false
+    },
+    {
+        id: 3,
+        name: "Pulse Gaming Headset",
+        category: "Headphones",
+        price: 199.00,
+        discount: 10,
+        rating: 4.5,
+        stock: 8,
+        image: "assets/images/product-3.jpg",
+        description: "Gaming headset with surround sound, a soft headband and a detachable microphone.",
+        featured: false
+    },
+    {
+        id: 4,
+        name: "Aero Slim Laptop 14",
+        category: "Laptops",
+        price: 3299.00,
+        discount: 0,
+        rating: 4.8,
+        stock: 6,
+        image: "assets/images/product-4.jpg",
+        description: "Light 14 inch laptop with a sharp display, 16GB memory and a fast 512GB SSD for work and study.",
+        featured: true
+    },
+    {
+        id: 5,
+        name: "Aero Book 15 Creator",
+        category: "Laptops",
+        price: 4599.00,
+        discount: 15,
+        rating: 4.6,
+        stock: 4,
+        image: "assets/images/product-5.jpg",
+        description: "Powerful 15 inch laptop built for design, video editing and multitasking.",
+        featured: true
+    },
+    {
+        id: 6,
+        name: "Nova Go Laptop 13",
+        category: "Laptops",
+        price: 2199.00,
+        discount: 10,
+        rating: 4.2,
+        stock: 0,
+        image: "assets/images/product-6.jpg",
+        description: "Budget friendly 13 inch laptop with all day battery life for students.",
+        featured: false
+    },
+    {
+        id: 7,
+        name: "Nova Phone X",
+        category: "Smartphones",
+        price: 2799.00,
+        discount: 0,
+        rating: 4.7,
+        stock: 12,
+        image: "assets/images/product-7.jpg",
+        description: "Flagship smartphone with a bright OLED screen, a great camera and fast charging.",
+        featured: true
+    },
+    {
+        id: 8,
+        name: "Nova Phone Lite",
+        category: "Smartphones",
+        price: 899.00,
+        discount: 30,
+        rating: 4.3,
+        stock: 20,
+        image: "assets/images/product-8.jpg",
+        description: "Affordable smartphone with a smooth display and a battery that lasts two days.",
+        featured: false
+    },
+    {
+        id: 9,
+        name: "Nova Phone Mini",
+        category: "Smartphones",
+        price: 1499.00,
+        discount: 0,
+        rating: 3.9,
+        stock: 0,
+        image: "assets/images/product-9.jpg",
+        description: "Small and light smartphone that fits easily in one hand.",
+        featured: false
+    },
+    {
+        id: 10,
+        name: "Keystone Mechanical Keyboard",
+        category: "Keyboards",
+        price: 289.00,
+        discount: 0,
+        rating: 4.6,
+        stock: 25,
+        image: "assets/images/product-10.jpg",
+        description: "Full size mechanical keyboard with tactile switches and soft white backlight.",
+        featured: true
+    },
+    {
+        id: 11,
+        name: "Keystone Wireless 75 Keyboard",
+        category: "Keyboards",
+        price: 219.00,
+        discount: 20,
+        rating: 4.4,
+        stock: 18,
+        image: "assets/images/product-11.jpg",
+        description: "Compact wireless keyboard that connects to three devices and switches with one key.",
+        featured: false
+    },
+    {
+        id: 12,
+        name: "Typemate Compact Keyboard",
+        category: "Keyboards",
+        price: 89.00,
+        discount: 0,
+        rating: 3.8,
+        stock: 40,
+        image: "assets/images/product-12.jpg",
+        description: "Slim and quiet keyboard that is perfect for the office or home desk.",
+        featured: false
+    },
+    {
+        id: 13,
+        name: "Glide Wireless Mouse",
+        category: "Mice",
+        price: 79.00,
+        discount: 0,
+        rating: 4.5,
+        stock: 50,
+        image: "assets/images/product-13.jpg",
+        description: "Quiet wireless mouse with a comfortable shape and a battery that lasts months.",
+        featured: false
+    },
+    {
+        id: 14,
+        name: "Glide Pro Gaming Mouse",
+        category: "Mice",
+        price: 159.00,
+        discount: 15,
+        rating: 4.8,
+        stock: 14,
+        image: "assets/images/product-14.jpg",
+        description: "Lightweight gaming mouse with a precise sensor and programmable buttons.",
+        featured: true
+    },
+    {
+        id: 15,
+        name: "Glide Ergonomic Mouse",
+        category: "Mice",
+        price: 129.00,
+        discount: 0,
+        rating: 4.1,
+        stock: 0,
+        image: "assets/images/product-15.jpg",
+        description: "Vertical mouse designed to reduce wrist strain during long work days.",
+        featured: false
+    },
+    {
+        id: 16,
+        name: "Nova Watch S2",
+        category: "Smartwatches",
+        price: 599.00,
+        discount: 0,
+        rating: 4.5,
+        stock: 10,
+        image: "assets/images/product-16.jpg",
+        description: "Smartwatch with heart rate tracking, GPS, sleep tracking and a bright always-on display.",
+        featured: true
+    },
+    {
+        id: 17,
+        name: "Nova Fit Band",
+        category: "Smartwatches",
+        price: 149.00,
+        discount: 15,
+        rating: 3.7,
+        stock: 35,
+        image: "assets/images/product-17.jpg",
+        description: "Simple fitness band that tracks steps, workouts and notifications.",
+        featured: false
+    },
+    {
+        id: 18,
+        name: "USB-C Fast Charger 65W",
+        category: "Accessories",
+        price: 79.00,
+        discount: 0,
+        rating: 4.6,
+        stock: 60,
+        image: "assets/images/product-18.jpg",
+        description: "Small 65W charger that can charge a laptop, phone and tablet.",
+        featured: false
+    },
+    {
+        id: 19,
+        name: "Nova Power Bank 20000",
+        category: "Accessories",
+        price: 129.00,
+        discount: 20,
+        rating: 4.4,
+        stock: 22,
+        image: "assets/images/product-19.jpg",
+        description: "20000mAh power bank with fast charging and two USB-C ports.",
+        featured: true
+    },
+    {
+        id: 20,
+        name: "Laptop Sleeve 14 inch",
+        category: "Accessories",
+        price: 59.00,
+        discount: 10,
+        rating: 4.0,
+        stock: 45,
+        image: "assets/images/product-20.jpg",
+        description: "Padded water resistant sleeve that protects your 14 inch laptop.",
+        featured: false
+    }
+];
