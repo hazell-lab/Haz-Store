@@ -4,11 +4,9 @@ Haz Store is a modern, responsive e-commerce website for a fictional electronics
 
 I built this project to practise DOM manipulation, array methods, local storage, accessibility and responsive design.
 
-<!-- add these once the site is online:
-**Live demo:** https://your-username.github.io/e-commerce/
+**[🔗 Live Demo](https://hazstore-ecommerce.netlify.app/)** · [Source code](https://github.com/hazell-lab/Haz-Store) · [Portfolio](https://hazimaqil-portfolio.netlify.app)
 
-![Haz Store screenshot](assets/images/screenshot.png)
--->
+![HazStore storefront](docs/screenshot.png)
 
 ## Technologies
 
@@ -63,7 +61,7 @@ I built this project to practise DOM manipulation, array methods, local storage,
 ## Folder structure
 
 ```
-e-commerce/
+Haz-Store/
 ├── index.html
 ├── css/
 │   └── style.css
@@ -73,13 +71,18 @@ e-commerce/
 ├── assets/
 │   ├── images/
 │   └── icons/
+├── docs/
+│   └── screenshot.png
 └── README.md
 ```
 
 ## How to run
 
-1. Download or clone this project
-2. Open the `e-commerce` folder in VS Code
+1. Clone this repository (or download it as a ZIP):
+   ```bash
+   git clone https://github.com/hazell-lab/Haz-Store.git
+   ```
+2. Open the `Haz-Store` folder in VS Code
 3. Install the "Live Server" extension
 4. Right-click `index.html` and choose "Open with Live Server"
 
@@ -128,3 +131,11 @@ Open `js/products.js` and add a new object at the end of the `products` array. R
 - Admin dashboard
 - Fetch products from an API
 - Rebuild the project with React
+
+## Author
+
+Built by **Hazim Aqil**, Software Engineering student at the German-Malaysian Institute (GMI).
+
+- Portfolio: [hazimaqil-portfolio.netlify.app](https://hazimaqil-portfolio.netlify.app)
+- GitHub: [@hazell-lab](https://github.com/hazell-lab)
+- LinkedIn: [mdhazimaqil](https://www.linkedin.com/in/mdhazimaqil/)
