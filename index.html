@@ -1,370 +1,469 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Haz Store is a modern fictional electronics store built with HTML, CSS and JavaScript.">
-    <meta name="theme-color" content="#2563eb">
-    <title>Haz Store | Modern electronics</title>
+    <meta name="description" content="Haz Store is a fictional electronics store with a small, carefully edited range of laptops, phones, audio and accessories.">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+    <title>Haz Store | Technology, edited</title>
 
     <!-- link preview when the site is shared (linkedin, whatsapp, etc.) -->
-    <meta property="og:title" content="Haz Store | Modern electronics">
+    <meta property="og:title" content="Haz Store | Technology, edited">
     <meta property="og:description" content="A responsive e-commerce frontend built with HTML, CSS and vanilla JavaScript.">
     <meta property="og:type" content="website">
 
-    <!-- favicon (blue square with a lightning bolt, same as the logo) -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Cpath d='M18 5 9 18h6l-1 9 9-13h-6z' fill='white'/%3E%3C/svg%3E">
+    <!-- favicon (yellow square with a bold h) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ffd60a'/%3E%3Ctext x='16' y='24' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='22' text-anchor='middle' fill='%230a0a0a'%3EH%3C/text%3E%3C/svg%3E">
 
-    <!-- google fonts -->
+    <!-- set the saved theme before the page paints (avoids a flash) -->
+    <script>
+        (function () {
+            document.documentElement.classList.add("js");
+            try {
+                var theme = localStorage.getItem("HazStoreTheme");
+                if (theme !== "light" && theme !== "dark") {
+                    theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                }
+                document.documentElement.dataset.theme = theme;
+            } catch (error) {}
+        })();
+    </script>
+
+    <!-- google fonts: archivo (one grotesk family, expanded width for display) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- font awesome icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&display=swap" rel="stylesheet">
 
     <!-- main stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
 
+    <!-- icon sprite (used with <svg><use href="#i-name"></use></svg>) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <defs>
+            <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+            <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.2a4.4 4.4 0 0 1 7.5 2.7C19.5 15.4 12 20 12 20Z"/></symbol>
+            <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8.5h14l-1.1 11.5H6.1L5 8.5Z"/><path d="M9 8.5V7a3 3 0 0 1 6 0v1.5"/></symbol>
+            <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c1.2-3.4 3.9-5 7-5s5.8 1.6 7 5"/></symbol>
+            <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 9h16M4 15h16"/></symbol>
+            <symbol id="i-close" viewBox="0 0 24 24"><path d="m6.5 6.5 11 11m0-11-11 11"/></symbol>
+            <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5.5v13M5.5 12h13"/></symbol>
+            <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5.5 12h13"/></symbol>
+            <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.5 12h15m-5.5-5.5L19.5 12 14 17.5"/></symbol>
+            <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+            <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.8 2.5 5.1 5.6.8-4 4 .9 5.6-5-2.7-5 2.7.9-5.6-4-4 5.6-.8L12 3.8Z"/></symbol>
+            <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2m0 15v2M4.6 4.6 6 6m12 12 1.4 1.4M2.5 12h2m15 0h2M4.6 19.4 6 18M18 6l1.4-1.4"/></symbol>
+            <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.6A7.6 7.6 0 0 1 9.4 4.5a7.6 7.6 0 1 0 10.1 10.1Z"/></symbol>
+            <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 6.5h11v10H3zM14 10h3.8l3.2 3.3v3.2h-7"/><circle cx="7" cy="17.5" r="1.7"/><circle cx="17" cy="17.5" r="1.7"/></symbol>
+            <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.3c0 4.3-2.9 7.6-7 9.2-4.1-1.6-7-4.9-7-9.2V6l7-2.5Z"/><path d="m9 12 2 2 4-4"/></symbol>
+            <symbol id="i-return" viewBox="0 0 24 24"><path d="M4.5 9.5H15a4.5 4.5 0 0 1 0 9H8.5"/><path d="M8.5 5.5 4.5 9.5l4 4"/></symbol>
+            <symbol id="i-support" viewBox="0 0 24 24"><path d="M4 5.5h16v10.5H10l-6 4V5.5Z"/><path d="M8.5 10.5h7"/></symbol>
+            <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 7.5h9m4 0h3M4 16.5h3m4 0h9"/><circle cx="15" cy="7.5" r="2"/><circle cx="9" cy="16.5" r="2"/></symbol>
+            <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3 10h18M6.5 15h4"/></symbol>
+            <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3.5 9.5 12 4.5l8.5 5M5.5 10v7.5M10 10v7.5M14 10v7.5M18.5 10v7.5M3.5 20h17"/></symbol>
+            <symbol id="i-cash" viewBox="0 0 24 24"><rect x="3" y="6.5" width="18" height="11" rx="1.5"/><circle cx="12" cy="12" r="2.5"/></symbol>
+            <symbol id="i-zoom" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2M11 8.5v5M8.5 11h5"/></symbol>
+            <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+        </defs>
+    </svg>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- announcement bar (real store policies) -->
+    <div class="announce" role="region" aria-label="Store announcements">
+        <p class="container announce-inner">
+            <span>Free delivery<span class="announce-long"> on orders</span> over RM300</span>
+            <span class="announce-sep" aria-hidden="true">/</span>
+            <span>14-day returns</span>
+            <span class="announce-sep hide-sm" aria-hidden="true">/</span>
+            <span class="hide-sm">1-year warranty on everything</span>
+        </p>
+    </div>
+
     <!-- navbar -->
-    <header class="header">
+    <header class="header" id="header">
         <div class="container nav">
             <a href="#home" class="logo" aria-label="Haz Store home">
-                <span class="logo-mark"><i class="fa-solid fa-bolt"></i></span>
-                <span>Haz<span class="logo-light">Store</span></span>
+                <span class="logo-word">Haz</span><span class="logo-dot" aria-hidden="true"></span><span class="logo-sub">Store</span>
             </a>
 
             <nav class="nav-links" id="navLinks" aria-label="Main navigation">
-                <a href="#home">Home</a>
                 <a href="#shop">Shop</a>
                 <a href="#categories">Categories</a>
-                <a href="#deals">Deals</a>
+                <a href="#featured">Selection</a>
+                <a href="#deals">Offers</a>
                 <a href="#about">About</a>
+                <div class="nav-extra">
+                    <button class="nav-extra-btn" data-action="open-profile">
+                        <svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg> Account
+                    </button>
+                    <button class="nav-extra-btn" data-action="toggle-theme">
+                        <svg class="icon icon-theme-light" aria-hidden="true"><use href="#i-moon"></use></svg>
+                        <svg class="icon icon-theme-dark" aria-hidden="true"><use href="#i-sun"></use></svg>
+                        <span class="theme-label">Dark mode</span>
+                    </button>
+                </div>
             </nav>
 
             <div class="nav-actions">
                 <button class="icon-btn" data-action="open-search" aria-label="Search products">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+                </button>
+                <button class="icon-btn hide-md" data-action="toggle-theme" aria-label="Switch to dark mode">
+                    <svg class="icon icon-theme-light" aria-hidden="true"><use href="#i-moon"></use></svg>
+                    <svg class="icon icon-theme-dark" aria-hidden="true"><use href="#i-sun"></use></svg>
                 </button>
                 <button class="icon-btn" data-action="open-wishlist" aria-label="Open wishlist">
-                    <i class="fa-regular fa-heart"></i>
+                    <svg class="icon" aria-hidden="true"><use href="#i-heart"></use></svg>
                     <span class="badge-count" id="wishlistCount" hidden>0</span>
                 </button>
-                <button class="icon-btn" data-action="open-cart" aria-label="Open shopping cart">
-                    <i class="fa-solid fa-bag-shopping"></i>
+                <button class="icon-btn hide-md profile-btn" data-action="open-profile" aria-label="User profile">
+                    <svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg>
+                </button>
+                <button class="bag-btn" data-action="open-cart" aria-label="Open shopping cart">
+                    <svg class="icon" aria-hidden="true"><use href="#i-bag"></use></svg>
+                    <span class="bag-label">Bag</span>
                     <span class="badge-count" id="cartCount" hidden>0</span>
                 </button>
-                <button class="icon-btn profile-btn" data-action="open-profile" aria-label="User profile">
-                    <i class="fa-regular fa-user"></i>
-                </button>
-                <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
-                    <i class="fa-solid fa-bars"></i>
+                <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+                    <svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
                 </button>
             </div>
         </div>
     </header>
 
-    <main>
+    <main id="main">
 
         <!-- hero -->
-        <section class="hero" id="home">
+        <section class="hero" id="home" aria-labelledby="heroTitle">
             <div class="container hero-inner">
                 <div class="hero-text">
-                    <span class="hero-badge"><i class="fa-solid fa-fire"></i> New arrivals · Up to 30% off selected items</span>
-                    <h1>Upgrade Your Everyday <span>Tech</span></h1>
-                    <p>Discover modern electronics and accessories designed for work, gaming, and everyday life.</p>
-                    <div class="hero-buttons">
-                        <a href="#shop" class="btn btn-primary">Shop now <i class="fa-solid fa-arrow-right"></i></a>
-                        <a href="#deals" class="btn btn-outline">View deals</a>
+                    <p class="kicker reveal">The Haz Edit &mdash; Seven departments, twenty products</p>
+                    <h1 class="hero-title reveal" id="heroTitle">Technology, edited.</h1>
+                    <p class="hero-lead reveal">A small, considered range of laptops, phones, audio and desk essentials. Fewer things, chosen better, priced fairly.</p>
+                    <div class="hero-buttons reveal">
+                        <a href="#shop" class="btn btn-primary btn-large">Shop the collection <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+                        <a href="#deals" class="btn-link">See current offers</a>
                     </div>
+
+                    <!-- spotlight picker (filled by script) -->
+                    <div class="spotlight-tabs reveal" id="spotlightTabs" role="tablist" aria-label="Spotlight products"></div>
                 </div>
 
-                <!-- hero image placeholder (replace with your own image if you like) -->
-                <div class="hero-visual" aria-hidden="true">
-                    <i class="fa-solid fa-headphones-simple hero-icon"></i>
-                    <div class="hero-card hero-card-1">
-                        <i class="fa-solid fa-truck-fast"></i> Free shipping over RM300
-                    </div>
-                    <div class="hero-card hero-card-2">
-                        <i class="fa-solid fa-star"></i> Rated 4.8 by customers
-                    </div>
-                </div>
+                <!-- spotlight product (filled by script) -->
+                <div class="hero-stage reveal" role="tabpanel" id="spotlightPanel"><figure class="hero-figure" id="spotlight"></figure></div>
             </div>
         </section>
 
+        <!-- store promises -->
+        <section class="promises" aria-label="Store promises">
+            <ul class="container promise-list">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-truck"></use></svg><span><strong>Free delivery</strong> on orders RM300 and above</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg><span><strong>1-year warranty</strong> on every product</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-return"></use></svg><span><strong>Easy returns</strong> within 14 days</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-support"></use></svg><span><strong>Friendly support</strong> every day</span></li>
+            </ul>
+        </section>
+
         <!-- categories -->
-        <section class="section" id="categories">
+        <section class="section" id="categories" aria-labelledby="categoriesTitle">
             <div class="container">
-                <div class="section-header">
-                    <div>
-                        <h2 class="section-title">Shop by category</h2>
-                        <p class="section-subtitle">Pick a category to filter the products.</p>
-                    </div>
+                <header class="section-header reveal">
+                    <p class="kicker">Departments</p>
+                    <h2 class="section-title" id="categoriesTitle">Shop by category</h2>
+                    <p class="section-subtitle">Pick a department to jump straight into the filtered collection.</p>
+                </header>
+                <div class="category-index">
+                    <ul class="category-list" id="categoryGrid"></ul>
+                    <div class="category-preview" id="categoryPreview" aria-hidden="true"></div>
                 </div>
-                <div class="category-grid" id="categoryGrid"></div>
             </div>
         </section>
 
         <!-- featured products -->
-        <section class="section section-alt" id="featured">
+        <section class="section section-alt" id="featured" aria-labelledby="featuredTitle">
             <div class="container">
-                <div class="section-header">
+                <header class="section-header section-header-split reveal">
                     <div>
-                        <h2 class="section-title">Featured products</h2>
-                        <p class="section-subtitle">Our favorite picks this season.</p>
+                        <p class="kicker">Editor's selection</p>
+                        <h2 class="section-title" id="featuredTitle">Chosen for the long run.</h2>
                     </div>
-                </div>
-                <div class="product-grid" id="featuredGrid"></div>
+                    <p class="section-subtitle">Our favorite picks this season &mdash; the products we would buy again.</p>
+                </header>
+                <div class="product-grid featured-grid" id="featuredGrid"></div>
             </div>
         </section>
 
         <!-- shop -->
-        <section class="section" id="shop">
+        <section class="section" id="shop" aria-labelledby="shopTitle">
             <div class="container">
-                <div class="section-header">
+                <header class="section-header section-header-split reveal">
                     <div>
-                        <h2 class="section-title">Shop all products</h2>
-                        <p class="section-subtitle">Search, filter and sort to find what you need.</p>
+                        <p class="kicker">The collection</p>
+                        <h2 class="section-title" id="shopTitle">Shop all products</h2>
                     </div>
-                </div>
+                    <p class="section-subtitle">Search, filter and sort to find what you need.</p>
+                </header>
+
+                <!-- category pills (filled by script) -->
+                <div class="category-pills" id="categoryPills" role="group" aria-label="Filter by category"></div>
 
                 <div class="shop-toolbar">
                     <div class="search-box">
                         <label for="searchInput" class="visually-hidden">Search products</label>
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="search" id="searchInput" class="form-control" placeholder="Search by product name or category">
+                        <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+                        <input type="search" id="searchInput" class="form-control" placeholder="Search by product name or category" autocomplete="off">
                     </div>
-
-                    <div class="filters">
-                        <div class="filter-group">
-                            <label for="categoryFilter">Category</label>
-                            <select id="categoryFilter" class="form-control"></select>
-                        </div>
-
-                        <div class="filter-group">
-                            <label for="priceFilter">Price range</label>
-                            <select id="priceFilter" class="form-control">
-                                <option value="all">All prices</option>
-                                <option value="under100">Under RM100</option>
-                                <option value="100-300">RM100 - RM300</option>
-                                <option value="300-1000">RM300 - RM1000</option>
-                                <option value="above1000">Above RM1000</option>
-                            </select>
-                        </div>
-
-                        <div class="filter-group">
-                            <label for="ratingFilter">Rating</label>
-                            <select id="ratingFilter" class="form-control">
-                                <option value="all">All ratings</option>
-                                <option value="4">4 stars and above</option>
-                                <option value="3">3 stars and above</option>
-                            </select>
-                        </div>
-
-                        <div class="filter-group">
-                            <label for="availabilityFilter">Availability</label>
-                            <select id="availabilityFilter" class="form-control">
-                                <option value="all">All</option>
-                                <option value="in-stock">In stock</option>
-                                <option value="out-of-stock">Out of stock</option>
-                            </select>
-                        </div>
-
-                        <div class="filter-group">
-                            <label for="sortSelect">Sort by</label>
-                            <select id="sortSelect" class="form-control">
-                                <option value="featured">Featured</option>
-                                <option value="price-low">Price: low to high</option>
-                                <option value="price-high">Price: high to low</option>
-                                <option value="rating">Rating</option>
-                                <option value="name">Name: A-Z</option>
-                            </select>
-                        </div>
-
-                        <div class="filter-group">
-                            <button class="btn btn-outline btn-full" id="clearFilters">Clear filters</button>
-                        </div>
+                    <button class="btn btn-outline filter-toggle" data-action="open-filters" aria-controls="filterPanel">
+                        <svg class="icon" aria-hidden="true"><use href="#i-filter"></use></svg> Filters
+                        <span class="filter-count" id="filterCount" hidden>0</span>
+                    </button>
+                    <div class="sort-box">
+                        <label for="sortSelect">Sort</label>
+                        <select id="sortSelect" class="form-control">
+                            <option value="featured">Featured</option>
+                            <option value="price-low">Price: low to high</option>
+                            <option value="price-high">Price: high to low</option>
+                            <option value="rating">Rating</option>
+                            <option value="name">Name: A-Z</option>
+                        </select>
                     </div>
                 </div>
 
-                <p class="results-count" id="resultsCount" aria-live="polite"></p>
-                <div class="product-grid" id="productGrid"></div>
+                <div class="shop-layout">
+                    <!-- filters: sidebar on desktop, bottom sheet on mobile -->
+                    <aside class="filter-panel drawer-like" id="filterPanel" aria-label="Product filters">
+                        <div class="drawer-header filter-panel-header">
+                            <h3>Filters</h3>
+                            <button class="icon-btn drawer-close" data-action="close-drawer" aria-label="Close filters">
+                                <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
+                            </button>
+                        </div>
+
+                        <div class="filter-body">
+                            <div class="filter-group filter-group-category">
+                                <label for="categoryFilter">Category</label>
+                                <select id="categoryFilter" class="form-control"></select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="priceFilter">Price range</label>
+                                <select id="priceFilter" class="form-control">
+                                    <option value="all">All prices</option>
+                                    <option value="under100">Under RM100</option>
+                                    <option value="100-300">RM100 - RM300</option>
+                                    <option value="300-1000">RM300 - RM1000</option>
+                                    <option value="above1000">Above RM1000</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="ratingFilter">Rating</label>
+                                <select id="ratingFilter" class="form-control">
+                                    <option value="all">All ratings</option>
+                                    <option value="4">4 stars and above</option>
+                                    <option value="3">3 stars and above</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="availabilityFilter">Availability</label>
+                                <select id="availabilityFilter" class="form-control">
+                                    <option value="all">All</option>
+                                    <option value="in-stock">In stock</option>
+                                    <option value="out-of-stock">Out of stock</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="filter-footer">
+                            <button class="btn btn-outline btn-full" id="clearFilters">Clear filters</button>
+                            <button class="btn btn-primary btn-full filter-apply" data-action="close-drawer" id="applyFilters">Show results</button>
+                        </div>
+                    </aside>
+
+                    <div class="shop-results">
+                        <div class="results-bar">
+                            <p class="results-count" id="resultsCount" aria-live="polite"></p>
+                            <div class="active-filters" id="activeFilters"></div>
+                        </div>
+                        <div class="product-grid shop-grid" id="productGrid"></div>
+                        <div class="load-more" id="loadMore" hidden>
+                            <p class="load-more-text" id="loadMoreText"></p>
+                            <div class="load-more-bar" aria-hidden="true"><span id="loadMoreBar"></span></div>
+                            <button class="btn btn-outline" data-action="load-more">Show more products</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- deals -->
-        <section class="section section-alt" id="deals">
+        <section class="section section-ink" id="deals" aria-labelledby="dealsTitle">
             <div class="container">
-                <div class="section-header">
+                <header class="section-header section-header-split reveal">
                     <div>
-                        <h2 class="section-title">Hot deals</h2>
-                        <p class="section-subtitle">Biggest discounts right now.</p>
+                        <p class="kicker">Offers</p>
+                        <h2 class="section-title" id="dealsTitle">Fewer deals, better ones.</h2>
                     </div>
-                </div>
-                <div class="product-grid" id="dealsGrid"></div>
+                    <p class="section-subtitle">The biggest discounts right now, on products we already rate.</p>
+                </header>
+                <div class="product-grid deals-grid" id="dealsGrid"></div>
             </div>
         </section>
 
-        <!-- recently viewed -->
-        <section class="section" id="recent">
+        <!-- about -->
+        <section class="section" id="about" aria-labelledby="aboutTitle">
+            <div class="container about-inner">
+                <p class="kicker reveal">About Haz Store</p>
+                <h2 class="about-statement reveal" id="aboutTitle">We stock fewer products, explain them plainly and price them fairly &mdash; so choosing tech feels less like homework.</h2>
+                <dl class="about-stats" id="aboutStats"></dl>
+                <p class="about-note reveal">Haz Store is a fictional shop made for a frontend portfolio project. We pretend to sell modern tech that is simple, reliable and fairly priced.</p>
+            </div>
+        </section>
+
+        <!-- recently viewed (hidden until a product is viewed) -->
+        <section class="section section-tight" id="recent" aria-labelledby="recentTitle" hidden>
             <div class="container">
-                <div class="section-header">
-                    <div>
-                        <h2 class="section-title">Recently viewed</h2>
-                        <p class="section-subtitle">Products you opened recently.</p>
-                    </div>
-                </div>
-                <div class="product-grid" id="recentGrid"></div>
+                <header class="section-header section-header-split">
+                    <h2 class="section-title section-title-small" id="recentTitle">Recently viewed</h2>
+                    <p class="section-subtitle">Products you opened recently.</p>
+                </header>
+                <div class="product-grid recent-grid" id="recentGrid"></div>
             </div>
         </section>
 
         <!-- checkout -->
-        <section class="section section-alt" id="checkout">
+        <section class="section section-alt checkout-section" id="checkout" aria-labelledby="checkoutTitle">
             <div class="container">
-                <div class="section-header">
+                <header class="section-header section-header-split">
                     <div>
-                        <h2 class="section-title">Checkout</h2>
-                        <p class="section-subtitle">This is a demo checkout. No real payment is made.</p>
+                        <p class="kicker">Checkout</p>
+                        <h2 class="section-title" id="checkoutTitle">Almost yours.</h2>
                     </div>
+                    <p class="section-subtitle">This is a demo checkout. No real payment is made.</p>
+                </header>
+
+                <div class="order-success" id="orderSuccess" hidden tabindex="-1">
+                    <span class="order-success-icon" aria-hidden="true"><svg class="icon"><use href="#i-check"></use></svg></span>
+                    <p class="kicker">Order confirmed</p>
+                    <h3 id="orderTitle">Order placed successfully.</h3>
+                    <p id="orderMessage"></p>
+                    <dl class="order-meta" id="orderMeta"></dl>
+                    <a href="#shop" class="btn btn-primary">Continue shopping</a>
                 </div>
 
-                <div class="order-success" id="orderSuccess" hidden>
-                    <i class="fa-solid fa-circle-check"></i>
-                    <div>
-                        <h3>Order placed successfully.</h3>
-                        <p id="orderMessage"></p>
-                    </div>
+                <div class="checkout-empty" id="checkoutEmpty">
+                    <p>Your bag is empty. Add a product and your order summary will appear here.</p>
+                    <a href="#shop" class="btn btn-outline">Browse the collection</a>
                 </div>
 
-                <div class="checkout-layout">
+                <div class="checkout-layout" id="checkoutLayout">
                     <form class="checkout-form" id="checkoutForm" novalidate>
 
-                        <h3 class="form-title">Customer information</h3>
-                        <div class="form-grid">
-                            <div class="form-group full">
-                                <label for="fullName">Full name</label>
-                                <input type="text" id="fullName" class="form-control" autocomplete="name">
-                                <span class="error-message" id="fullNameError"></span>
+                        <fieldset class="form-step">
+                            <legend class="form-title"><span class="step-num">1</span> Customer information</legend>
+                            <div class="form-grid">
+                                <div class="form-group full">
+                                    <label for="fullName">Full name</label>
+                                    <input type="text" id="fullName" class="form-control" autocomplete="name" aria-describedby="fullNameError">
+                                    <span class="error-message" id="fullNameError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" class="form-control" autocomplete="email" aria-describedby="emailError">
+                                    <span class="error-message" id="emailError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone number</label>
+                                    <input type="tel" id="phone" class="form-control" autocomplete="tel" placeholder="012-345 6789" aria-describedby="phoneError">
+                                    <span class="error-message" id="phoneError"></span>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" class="form-control" autocomplete="email">
-                                <span class="error-message" id="emailError"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone number</label>
-                                <input type="tel" id="phone" class="form-control" autocomplete="tel" placeholder="012-345 6789">
-                                <span class="error-message" id="phoneError"></span>
-                            </div>
-                        </div>
+                        </fieldset>
 
-                        <h3 class="form-title">Shipping address</h3>
-                        <div class="form-grid">
-                            <div class="form-group full">
-                                <label for="address">Address</label>
-                                <input type="text" id="address" class="form-control" autocomplete="street-address">
-                                <span class="error-message" id="addressError"></span>
+                        <fieldset class="form-step">
+                            <legend class="form-title"><span class="step-num">2</span> Shipping address</legend>
+                            <div class="form-grid">
+                                <div class="form-group full">
+                                    <label for="address">Address</label>
+                                    <input type="text" id="address" class="form-control" autocomplete="street-address" aria-describedby="addressError">
+                                    <span class="error-message" id="addressError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" class="form-control" autocomplete="address-level2" aria-describedby="cityError">
+                                    <span class="error-message" id="cityError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="postcode">Postcode</label>
+                                    <input type="text" id="postcode" class="form-control" inputmode="numeric" autocomplete="postal-code" maxlength="5" aria-describedby="postcodeError">
+                                    <span class="error-message" id="postcodeError"></span>
+                                </div>
+                                <div class="form-group full">
+                                    <label for="state">State</label>
+                                    <select id="state" class="form-control" autocomplete="address-level1" aria-describedby="stateError">
+                                        <option value="">Select state</option>
+                                        <option value="Johor">Johor</option>
+                                        <option value="Kedah">Kedah</option>
+                                        <option value="Kelantan">Kelantan</option>
+                                        <option value="Kuala Lumpur">Kuala Lumpur</option>
+                                        <option value="Labuan">Labuan</option>
+                                        <option value="Melaka">Melaka</option>
+                                        <option value="Negeri Sembilan">Negeri Sembilan</option>
+                                        <option value="Pahang">Pahang</option>
+                                        <option value="Penang">Penang</option>
+                                        <option value="Perak">Perak</option>
+                                        <option value="Perlis">Perlis</option>
+                                        <option value="Putrajaya">Putrajaya</option>
+                                        <option value="Sabah">Sabah</option>
+                                        <option value="Sarawak">Sarawak</option>
+                                        <option value="Selangor">Selangor</option>
+                                        <option value="Terengganu">Terengganu</option>
+                                    </select>
+                                    <span class="error-message" id="stateError"></span>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="city">City</label>
-                                <input type="text" id="city" class="form-control" autocomplete="address-level2">
-                                <span class="error-message" id="cityError"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="state">State</label>
-                                <select id="state" class="form-control">
-                                    <option value="">Select state</option>
-                                    <option value="Johor">Johor</option>
-                                    <option value="Kedah">Kedah</option>
-                                    <option value="Kelantan">Kelantan</option>
-                                    <option value="Kuala Lumpur">Kuala Lumpur</option>
-                                    <option value="Labuan">Labuan</option>
-                                    <option value="Melaka">Melaka</option>
-                                    <option value="Negeri Sembilan">Negeri Sembilan</option>
-                                    <option value="Pahang">Pahang</option>
-                                    <option value="Penang">Penang</option>
-                                    <option value="Perak">Perak</option>
-                                    <option value="Perlis">Perlis</option>
-                                    <option value="Putrajaya">Putrajaya</option>
-                                    <option value="Sabah">Sabah</option>
-                                    <option value="Sarawak">Sarawak</option>
-                                    <option value="Selangor">Selangor</option>
-                                    <option value="Terengganu">Terengganu</option>
-                                </select>
-                                <span class="error-message" id="stateError"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="postcode">Postcode</label>
-                                <input type="text" id="postcode" class="form-control" inputmode="numeric" autocomplete="postal-code">
-                                <span class="error-message" id="postcodeError"></span>
-                            </div>
-                        </div>
+                        </fieldset>
 
-                        <h3 class="form-title">Payment method</h3>
-                        <fieldset class="payment-options">
-                            <legend class="visually-hidden">Choose a payment method</legend>
+                        <fieldset class="form-step payment-options">
+                            <legend class="form-title"><span class="step-num">3</span> Payment method</legend>
                             <label class="payment-option">
                                 <input type="radio" name="payment" value="Credit/debit card" checked>
-                                <span><i class="fa-regular fa-credit-card"></i> Credit/debit card</span>
+                                <span class="payment-tile"><svg class="icon" aria-hidden="true"><use href="#i-card"></use></svg> Credit/debit card</span>
                             </label>
                             <label class="payment-option">
                                 <input type="radio" name="payment" value="Online banking">
-                                <span><i class="fa-solid fa-building-columns"></i> Online banking</span>
+                                <span class="payment-tile"><svg class="icon" aria-hidden="true"><use href="#i-bank"></use></svg> Online banking</span>
                             </label>
                             <label class="payment-option">
                                 <input type="radio" name="payment" value="Cash on delivery">
-                                <span><i class="fa-solid fa-money-bill-wave"></i> Cash on delivery</span>
+                                <span class="payment-tile"><svg class="icon" aria-hidden="true"><use href="#i-cash"></use></svg> Cash on delivery</span>
                             </label>
                         </fieldset>
 
-                        <button type="submit" class="btn btn-primary btn-full btn-large">Place order</button>
+                        <button type="submit" class="btn btn-primary btn-full btn-large place-order">
+                            Place order <span class="place-order-total" id="placeOrderTotal"></span>
+                        </button>
+                        <p class="form-note">By placing this demo order you agree that nothing will actually be shipped.</p>
                     </form>
 
-                    <aside class="order-summary" aria-label="Order summary">
-                        <h3 class="form-title">Order summary</h3>
+                    <aside class="order-summary" aria-labelledby="summaryTitle">
+                        <h3 class="form-title" id="summaryTitle">Order summary</h3>
                         <ul class="summary-list" id="checkoutItems"></ul>
+                        <div class="ship-progress" id="checkoutShipProgress"></div>
                         <div class="totals">
                             <div class="totals-row"><span>Subtotal</span><span id="checkoutSubtotal">RM0.00</span></div>
                             <div class="totals-row"><span>Shipping</span><span id="checkoutShipping">RM0.00</span></div>
                             <div class="totals-row totals-final"><span>Total</span><span id="checkoutTotal">RM0.00</span></div>
                         </div>
+                        <ul class="summary-notes">
+                            <li><svg class="icon" aria-hidden="true"><use href="#i-return"></use></svg> Returns within 14 days</li>
+                            <li><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg> 1-year warranty included</li>
+                        </ul>
                     </aside>
-                </div>
-            </div>
-        </section>
-
-        <!-- about -->
-        <section class="section" id="about">
-            <div class="container">
-                <div class="section-header">
-                    <div>
-                        <h2 class="section-title">About Haz Store</h2>
-                        <p class="section-subtitle">Haz Store is a fictional shop made for a frontend portfolio project. We pretend to sell modern tech that is simple, reliable and fairly priced.</p>
-                    </div>
-                </div>
-                <div class="about-grid">
-                    <div class="about-card">
-                        <i class="fa-solid fa-truck-fast"></i>
-                        <h3>Fast shipping</h3>
-                        <p>Free shipping on orders RM300 and above.</p>
-                    </div>
-                    <div class="about-card">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <h3>1 year warranty</h3>
-                        <p>Every product comes with a simple warranty.</p>
-                    </div>
-                    <div class="about-card">
-                        <i class="fa-solid fa-rotate-left"></i>
-                        <h3>Easy returns</h3>
-                        <p>Changed your mind? Return within 14 days.</p>
-                    </div>
-                    <div class="about-card">
-                        <i class="fa-solid fa-headset"></i>
-                        <h3>Friendly support</h3>
-                        <p>Our team is ready to help you every day.</p>
-                    </div>
                 </div>
             </div>
         </section>
@@ -374,19 +473,17 @@
     <!-- footer -->
     <footer class="footer">
         <div class="container">
+            <div class="footer-top">
+                <p class="footer-statement">Technology, edited.</p>
+                <a href="#shop" class="btn btn-invert">Shop the collection <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+            </div>
+
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="#home" class="logo logo-footer" aria-label="Haz Store home">
-                        <span class="logo-mark"><i class="fa-solid fa-bolt"></i></span>
-                        <span>Haz<span class="logo-light">Store</span></span>
+                        <span class="logo-word">Haz</span><span class="logo-dot" aria-hidden="true"></span><span class="logo-sub">Store</span>
                     </a>
                     <p>Modern electronics and accessories for work, gaming, and everyday life.</p>
-                    <div class="social-links">
-                        <a href="#" data-action="coming-soon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" data-action="coming-soon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" data-action="coming-soon" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="#" data-action="coming-soon" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                    </div>
                 </div>
 
                 <div class="footer-col">
@@ -417,10 +514,21 @@
                         <li><a href="#" data-action="coming-soon">Privacy policy</a></li>
                     </ul>
                 </div>
+
+                <div class="footer-col">
+                    <h3>Follow</h3>
+                    <ul>
+                        <li><a href="#" data-action="coming-soon">Instagram</a></li>
+                        <li><a href="#" data-action="coming-soon">YouTube</a></li>
+                        <li><a href="#" data-action="coming-soon">Facebook</a></li>
+                        <li><a href="#" data-action="coming-soon">X</a></li>
+                    </ul>
+                </div>
             </div>
 
             <div class="footer-bottom">
                 <p>&copy; 2026 Haz Store. A fictional store built by Muhamad Hazim Aqil as a frontend portfolio project.</p>
+                <p class="footer-meta">Prices in Malaysian ringgit (RM)</p>
             </div>
         </div>
     </footer>
@@ -429,32 +537,32 @@
     <div class="overlay" id="overlay" data-action="close-drawer"></div>
 
     <!-- cart drawer -->
-    <aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping cart">
+    <aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
         <div class="drawer-header">
-            <h2>Your cart</h2>
+            <h2 id="cartTitle">Your bag <span class="drawer-count" id="cartDrawerCount"></span></h2>
             <button class="icon-btn drawer-close" data-action="close-drawer" aria-label="Close cart">
-                <i class="fa-solid fa-xmark"></i>
+                <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
             </button>
         </div>
+        <div class="ship-progress drawer-ship" id="shippingNote" aria-live="polite"></div>
         <ul class="drawer-body" id="cartItems"></ul>
         <div class="drawer-footer" id="cartFooter" hidden>
-            <p class="shipping-note" id="shippingNote"></p>
             <div class="totals">
                 <div class="totals-row"><span>Subtotal</span><span id="cartSubtotal">RM0.00</span></div>
                 <div class="totals-row"><span>Shipping</span><span id="cartShipping">RM0.00</span></div>
                 <div class="totals-row totals-final"><span>Total</span><span id="cartTotal">RM0.00</span></div>
             </div>
-            <button class="btn btn-primary btn-full" data-action="go-checkout">Go to checkout</button>
-            <button class="btn btn-outline btn-full" data-action="clear-cart">Clear cart</button>
+            <button class="btn btn-primary btn-full btn-large" data-action="go-checkout">Go to checkout <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+            <button class="btn-link btn-link-muted" data-action="clear-cart">Clear bag</button>
         </div>
     </aside>
 
     <!-- wishlist drawer -->
-    <aside class="drawer" id="wishlistDrawer" role="dialog" aria-modal="true" aria-label="Wishlist">
+    <aside class="drawer" id="wishlistDrawer" role="dialog" aria-modal="true" aria-labelledby="wishlistTitle">
         <div class="drawer-header">
-            <h2>Your wishlist</h2>
+            <h2 id="wishlistTitle">Wishlist</h2>
             <button class="icon-btn drawer-close" data-action="close-drawer" aria-label="Close wishlist">
-                <i class="fa-solid fa-xmark"></i>
+                <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
             </button>
         </div>
         <ul class="drawer-body" id="wishlistItems"></ul>
@@ -463,8 +571,8 @@
     <!-- product details modal -->
     <div class="modal" id="productModal" hidden>
         <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-            <button class="modal-close" data-action="close-modal" aria-label="Close product details">
-                <i class="fa-solid fa-xmark"></i>
+            <button class="modal-close icon-btn" data-action="close-modal" aria-label="Close product details">
+                <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
             </button>
             <div class="modal-content" id="modalContent"></div>
         </div>
@@ -474,7 +582,7 @@
     <div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
     <!-- scripts -->
-    <script src="js/products.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/products.js?v=2"></script>
+    <script src="js/script.js?v=3"></script>
 </body>
 </html>
