@@ -1,6 +1,6 @@
 # Haz Store – E-commerce Frontend
 
-Haz Store is a modern, responsive e-commerce website for a fictional electronics shop. It is built with plain HTML, CSS and JavaScript (no frameworks, no libraries), so it runs with just a browser or the VS Code Live Server extension.
+Haz Store is a modern, responsive e-commerce website for a fictional electronics shop, with a bold, product-first look: black and white, one signal yellow, and a heavy grotesk typeface. It is built with plain HTML, CSS and JavaScript (no frameworks, no libraries), so it runs with just a browser or the VS Code Live Server extension.
 
 I built this project to practise DOM manipulation, array methods, local storage, accessibility and responsive design.
 
@@ -13,20 +13,22 @@ I built this project to practise DOM manipulation, array methods, local storage,
 - HTML5
 - CSS3 (custom properties, grid, flexbox, media queries)
 - Vanilla JavaScript (ES6)
-- Google Fonts (Inter)
-- Font Awesome icons
+- Google Fonts (Archivo, including its expanded width for headings)
+- Inline SVG icons (no icon library)
 
 ## Features
 
-- Responsive navbar with a hamburger menu on mobile
-- Hero section with a promo badge
-- Category cards that filter products (the active category is highlighted)
+- Responsive navbar with a full-screen menu on mobile
+- Light and dark theme (follows the system setting, choice is saved)
+- Hero with a product spotlight (three featured products to pick from)
+- Category tiles, plus category pills in the shop
 - 20 fictional products stored in JavaScript
 - Live search by product name or category
-- Filters: category, price range, rating, availability
+- Filters: category, price range, rating, availability (sidebar on desktop, bottom sheet on mobile) with removable filter chips
+- "Show more" paging with progress
 - Sorting: featured, price, rating, name
-- Product details modal with a quantity selector
-- Shopping cart drawer (add, remove, increase, decrease, clear)
+- Product details modal with image zoom, quantity selector, delivery and returns info and related products
+- Shopping cart drawer (add, remove, increase, decrease, clear) with a free shipping progress bar
 - Shipping calculation with free shipping at RM300 and above
 - Wishlist with a heart toggle
 - Recently viewed products
@@ -36,6 +38,10 @@ I built this project to practise DOM manipulation, array methods, local storage,
 - Toast notifications
 - Empty states for the cart, wishlist, search and recently viewed
 - Cart, wishlist and recently viewed saved with local storage (saved data is checked against current stock when the page loads)
+
+## Design
+
+The current visual identity (palette, type, shapes, screenshots in both themes) is described in [`docs/reskin/RESKIN.md`](docs/reskin/RESKIN.md). The earlier redesign notes (audit, layout and component changes, test results) are in [`docs/redesign/REDESIGN.md`](docs/redesign/REDESIGN.md). Its brand identity section describes the previous serif look, which has since been replaced.
 
 ## Accessibility
 
