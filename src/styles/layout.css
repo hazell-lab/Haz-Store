@@ -1,0 +1,92 @@
+/* 3. layout and type */
+.container {
+    width: min(var(--container), 100% - var(--gutter) * 2);
+    margin-inline: auto;
+}
+
+.section {
+    padding: var(--section-y) 0;
+    scroll-margin-top: var(--header-h);
+}
+
+.section-tight {
+    padding: var(--space-8) 0;
+}
+
+.section-alt {
+    --plate: var(--plate-alt);
+    background: var(--paper-2);
+}
+
+.kicker {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: 8px;
+    padding: 5px 9px 4px;
+    background: var(--signal);
+    color: var(--on-signal);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.kicker-num {
+    display: none;
+}
+
+.kicker-num::after {
+    content: none;
+}
+
+.section-header {
+    display: grid;
+    gap: var(--space-4);
+    margin-bottom: clamp(32px, 2rem + 2vw, 64px);
+    max-width: 760px;
+}
+
+.section-header-split {
+    max-width: none;
+    grid-template-columns: 1fr minmax(0, 360px);
+    align-items: end;
+    column-gap: var(--space-7);
+}
+
+.section-header-split > div {
+    display: grid;
+    gap: var(--space-4);
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-stretch: 125%;
+    font-variation-settings: "wdth" var(--wdth-display);
+    font-weight: 800;
+    font-size: var(--fs-h2);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+.section-title em,
+.hero-title em,
+.about-statement em,
+.footer-statement em {
+    color: inherit;
+}
+
+.section-title-small {
+    font-size: var(--fs-h3);
+}
+
+.section-subtitle {
+    color: var(--ink-2);
+    font-size: var(--fs-body);
+    max-width: 46ch;
+}
+
+.price,
+.mono {
+    font-variant-numeric: tabular-nums;
+}

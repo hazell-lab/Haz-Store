@@ -1,0 +1,158 @@
+/* 10. motion */
+.js .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+    transition-delay: var(--delay, 0ms);
+}
+
+.js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* loading state: images fade in once loaded, the plate shimmers until then */
+.js .product-media img,
+.js .cart-thumb img,
+.js .zoom-frame img {
+    opacity: 0;
+    transition: opacity var(--dur-3) var(--ease), transform 900ms var(--ease);
+}
+
+.js .product-media img.is-loaded,
+.js .cart-thumb img.is-loaded,
+.js .zoom-frame img.is-loaded {
+    opacity: 1;
+}
+
+.product-media:has(img:not(.is-loaded))::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+    background-size: 220% 100%;
+    animation: shimmer 1.4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    from { background-position: 120% 0; }
+    to { background-position: -120% 0; }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes sheet-in {
+    from { opacity: 0; transform: translateY(24px) scale(0.99); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes card-in {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes stage-in {
+    from { opacity: 0; transform: translateY(16px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes bump {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.35); }
+    100% { transform: scale(1); }
+}
+
+@keyframes toast-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes toast-in-top {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes toast-out {
+    to { opacity: 0; transform: translateY(8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        transition-delay: 0ms !important;
+    }
+
+    .js .reveal {
+        opacity: 1;
+        transform: none;
+    }
+
+    .product-card:hover .product-media img {
+        transform: none;
+    }
+}
+
+/* touch devices: no hover, so keep card actions visible */
+@media (hover: none) {
+    .wishlist-btn {
+        opacity: 1;
+        transform: none;
+        background: rgba(255, 255, 255, 0.85);
+    }
+
+    .quick-add {
+        left: auto;
+        right: 8px;
+        bottom: 8px;
+        width: 42px;
+        min-height: 42px;
+        padding: 0;
+        opacity: 1;
+        transform: none;
+    }
+
+    .quick-add .quick-add-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+    }
+
+    .quick-add .icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .quick-add:disabled {
+        display: none;
+    }
+
+    .product-card:hover .product-media img {
+        transform: none;
+    }
+
+    .zoom-hint-desktop {
+        display: none;
+    }
+}
+
+@media (hover: hover) {
+    .zoom-hint-touch {
+        display: none;
+    }
+}

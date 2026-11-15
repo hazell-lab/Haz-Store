@@ -1,0 +1,105 @@
+/* 1. tokens */
+:root {
+    /* color: pure white and true black with one signal yellow */
+    --paper: #ffffff;
+    --paper-2: #f2f2f2;
+    --surface: #ffffff;
+    --plate: #f0f0f0;            /* product photo background */
+    --plate-alt: #ffffff;        /* plate on grey sections */
+    --ink: #0a0a0a;
+    --ink-2: #333333;
+    --ink-3: #636363;
+    --line: #d9d9d9;
+    --line-soft: #e8e8e8;
+    --line-strong: #0a0a0a;
+    --accent: #0a0a0a;           /* text-safe emphasis (never yellow on white) */
+    --signal: #ffd60a;           /* yellow, only ever behind black text */
+    --on-signal: #0a0a0a;
+    --success: #13703a;
+    --warning: #8a5300;
+    --danger: #c0170f;
+    --overlay: rgba(10, 10, 10, 0.6);
+
+    /* the black band (footer, announcement) */
+    --band: #0a0a0a;
+    --band-ink: #ffffff;
+    --band-ink-2: #cfcfcf;
+    --band-ink-3: #9e9e9e;
+    --band-line: #2e2e2e;
+
+    /* buttons */
+    --btn-bg: var(--signal);
+    --btn-fg: var(--on-signal);
+
+    /* type: one grotesk family, expanded for display */
+    --font-display: "Archivo", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+    --font-text: "Archivo", "Helvetica Neue", Arial, system-ui, sans-serif;
+    --font-mono: var(--font-text);   /* no mono labels in this identity */
+    --wdth-display: 125;
+
+    --fs-display: clamp(2.2rem, 4.5vw, 5.2rem);
+    --fs-h2: clamp(1.9rem, 1.2rem + 2.4vw, 3.4rem);
+    --fs-h3: clamp(1.35rem, 1.15rem + 0.8vw, 1.85rem);
+    --fs-lead: clamp(1.05rem, 0.98rem + 0.32vw, 1.25rem);
+    --fs-body: 1rem;
+    --fs-sm: 0.875rem;
+    --fs-xs: 0.8125rem;
+    --fs-mono: 0.8125rem;
+
+    /* spacing scale */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+    --space-8: 64px;
+    --space-9: 96px;
+    --space-10: 136px;
+    --section-y: clamp(56px, 3rem + 3vw, 104px);
+
+    /* shape: hard edges */
+    --radius-s: 0;
+    --radius-m: 2px;
+    --shadow-pop: none;
+    --shadow-drawer: none;
+
+    /* motion */
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --dur-1: 120ms;
+    --dur-2: 200ms;
+    --dur-3: 420ms;
+
+    /* layout */
+    --container: 1360px;
+    --gutter: clamp(16px, 3vw, 40px);
+    --header-h: 68px;
+
+    color-scheme: light;
+}
+
+[data-theme="dark"] {
+    --paper: #0a0a0a;
+    --paper-2: #161616;
+    --surface: #121212;
+    --plate: #ececec;            /* stays light so product photos read well */
+    --plate-alt: #f5f5f5;
+    --ink: #ffffff;
+    --ink-2: #d0d0d0;
+    --ink-3: #a3a3a3;
+    --line: #2e2e2e;
+    --line-soft: #222222;
+    --line-strong: #ffffff;
+    --accent: #ffffff;
+    --success: #5fd08a;
+    --warning: #f0b04a;
+    --danger: #ff7a70;
+    --overlay: rgba(0, 0, 0, 0.72);
+
+    --band: #000000;
+    --band-line: #262626;
+
+    color-scheme: dark;
+}

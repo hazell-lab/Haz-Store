@@ -1,142 +1,152 @@
 # Haz Store – E-commerce Frontend
 
-Haz Store is a modern, responsive e-commerce website for a fictional electronics shop, with a bold, product-first look: black and white, one signal yellow, and a heavy grotesk typeface. It is built with plain HTML, CSS and JavaScript (no frameworks, no libraries), so it runs with just a browser or the VS Code Live Server extension.
+Haz Store is a responsive e-commerce frontend for a fictional electronics shop, with a bold, product-first look: black and white, one signal yellow, and a heavy grotesk typeface. Version 2 rebuilds the original vanilla JavaScript site as a **React + Vite** single page app with real routes, reusable components, custom hooks and an automated test suite.
 
-I built this project to practise DOM manipulation, array methods, local storage, accessibility and responsive design.
+It is a portfolio project. Products, prices and stock are sample data, and the checkout is a clearly labelled demo: no order is sent anywhere, no payment is taken and nothing is shipped.
 
 **[🔗 Live Demo](https://hazstore-ecommerce.netlify.app/)** · [Source code](https://github.com/hazell-lab/Haz-Store) · [Portfolio](https://hazimaqil-portfolio.netlify.app)
 
 ![HazStore storefront](docs/screenshot.png)
 
-## Technologies
-
-- HTML5
-- CSS3 (custom properties, grid, flexbox, media queries)
-- Vanilla JavaScript (ES6)
-- Google Fonts (Archivo, including its expanded width for headings)
-- Inline SVG icons (no icon library)
-
 ## Features
 
-- Responsive navbar with a full-screen menu on mobile
+**Shopping**
+- Home page with a product spotlight, departments, editor's selection, offers, top rated (by real rating data) and recently viewed
+- Shop page with search, category, price, rating and availability filters that all combine, five sort options, a result count, removable filter chips, "clear all", an empty state and "show more" paging
+- Filters live in the URL (`/shop?category=Mice&price=under100`), so results can be shared, bookmarked and restored with the back button
+- Header search with live product suggestions (keyboard friendly combobox)
+- Product pages (`/product/:id`) with image zoom, price and discount, stock, quantity selector, add to bag, wishlist, a details list built only from real product fields, related products and recently viewed
+
+**Bag, wishlist and checkout**
+- Slide-in bag drawer and a full bag page, with quantity limits based on stock and a free shipping progress bar (free from RM300, otherwise RM10)
+- Wishlist page with a heart toggle on every product card
+- Recently viewed products (newest first, no duplicates, last six)
+- Demo checkout with field validation (Malaysian phone numbers, 5-digit postcodes), a loading state and a confirmation; no card or bank details are ever asked for
+- Bag, wishlist, recently viewed and theme are saved in local storage, checked against the catalog on load and kept in sync between tabs
+
+**Quality**
+- Loading skeletons, an error state with "try again", empty states and a 404 page
 - Light and dark theme (follows the system setting, choice is saved)
-- Hero with a product spotlight (three featured products to pick from)
-- Category tiles, plus category pills in the shop
-- 20 fictional products stored in JavaScript
-- Live search by product name or category
-- Filters: category, price range, rating, availability (sidebar on desktop, bottom sheet on mobile) with removable filter chips
-- "Show more" paging with progress
-- Sorting: featured, price, rating, name
-- Product details modal with image zoom, quantity selector, delivery and returns info and related products
-- Shopping cart drawer (add, remove, increase, decrease, clear) with a free shipping progress bar
-- Shipping calculation with free shipping at RM300 and above
-- Wishlist with a heart toggle
-- Recently viewed products
-- Deals section with discount badges and calculated sale prices
-- Featured products section
-- Frontend-only checkout with form validation (Malaysian phone numbers and 5-digit postcodes)
-- Toast notifications
-- Empty states for the cart, wishlist, search and recently viewed
-- Cart, wishlist and recently viewed saved with local storage (saved data is checked against current stock when the page loads)
+- Keyboard accessible throughout: focus moves to the page heading after navigation, drawers trap focus and close with Escape, labels and live regions everywhere
+- Animations are turned off for users who enable "reduce motion"
+- Pages other than home are code split and load on first visit
 
-## Design
+## Technologies
 
-The current visual identity (palette, type, shapes, screenshots in both themes) is described in [`docs/reskin/RESKIN.md`](docs/reskin/RESKIN.md). The earlier redesign notes (audit, layout and component changes, test results) are in [`docs/redesign/REDESIGN.md`](docs/redesign/REDESIGN.md). Its brand identity section describes the previous serif look, which has since been replaced.
+- React 19 and React Router 7
+- Vite 8
+- Vitest, React Testing Library, user-event and jest-dom (jsdom)
+- CSS with custom properties, grid and flexbox (no CSS framework)
+- Google Fonts (Archivo) and inline SVG icons
 
-## Accessibility
+## Getting started
 
-- Every part of the site can be used with the keyboard only
-- Focus stays on the same button after the cart or wishlist updates
-- Drawers and the modal keep the Tab key inside them, close with Escape, and send focus back to the button that opened them
-- Labels on all form fields, `aria-invalid` on fields with errors, and live regions for results and toasts
-- Animations are turned off for users who enable "reduce motion" on their device
+You need [Node.js](https://nodejs.org/) 22.12 or newer (Vitest needs it; Vite alone runs on 20.19+).
 
-## JavaScript concepts demonstrated
+```bash
+git clone https://github.com/hazell-lab/Haz-Store.git
+```
 
-- Variables (`const` and `let`)
-- Functions
-- Arrays and objects
-- Array methods: `map`, `filter`, `find`, `some`, `reduce`, `sort`, `includes`, `slice`
-- DOM manipulation (`getElementById`, `querySelector`, `innerHTML`, `classList`, `createElement`)
-- Event listeners and event delegation (`closest`, `dataset`)
-- Template literals
-- Conditionals and `switch`
-- Local storage with `JSON.stringify` and `JSON.parse`, wrapped in `try/catch`
-- Form validation with regular expressions
+```bash
+cd Haz-Store
+```
 
-## Folder structure
+```bash
+npm install
+```
+
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Start the dev server at http://localhost:5173 |
+| `npm run build` | Build the production site into `dist/` |
+| `npm run preview` | Serve the production build at http://localhost:4173 |
+| `npm test` | Run the test suite once |
+| `npm run test:watch` | Run the tests in watch mode |
+
+On Windows PowerShell 5.1, run commands one at a time (`&&` is not supported there).
+
+## Environment variables
+
+None. The app has no backend, API keys or secrets. Products are loaded from the static file `public/data/products.json`.
+
+## Project structure
 
 ```
 Haz-Store/
-├── index.html
-├── css/
-│   └── style.css
-├── js/
-│   ├── products.js
-│   └── script.js
-├── assets/
-│   ├── images/
-│   └── icons/
-├── docs/
-│   └── screenshot.png
-└── README.md
+├── index.html                 # vite entry (theme script, fonts, root element)
+├── public/
+│   ├── _redirects             # netlify: send every route to the app
+│   ├── assets/images/         # product photos
+│   └── data/products.json     # the product catalog
+├── src/
+│   ├── main.jsx               # renders the app
+│   ├── App.jsx                # providers and routes
+│   ├── config.js              # store rules (shipping, limits, storage keys)
+│   ├── components/            # header, footer, cards, drawer, filters, forms...
+│   ├── context/               # catalog, store (bag/wishlist/recent), toasts, ui
+│   ├── hooks/                 # useCart, useWishlist, useRecentlyViewed,
+│   │                          # useProductFilters, useLocalStorage, useDialog...
+│   ├── pages/                 # home, shop, product, bag, wishlist, checkout, 404
+│   ├── services/              # loads and checks the catalog json
+│   ├── styles/                # design tokens and styles, split by area
+│   ├── utils/                 # pricing, filters, cart maths, validation
+│   └── test/                  # test setup and helpers
+├── docs/                      # design notes and screenshots
+├── netlify.toml
+└── vite.config.js
 ```
 
-## How to run
+Business rules (prices, filters, cart totals, validation) are plain functions in `src/utils`, so they are easy to test and reuse. Components stay small and get their data from hooks.
 
-1. Clone this repository (or download it as a ZIP):
-   ```bash
-   git clone https://github.com/hazell-lab/Haz-Store.git
-   ```
-2. Open the `Haz-Store` folder in VS Code
-3. Install the "Live Server" extension
-4. Right-click `index.html` and choose "Open with Live Server"
+## Tests
 
-You can also open `index.html` directly in a browser. An internet connection is needed for Google Fonts and the Font Awesome icons.
+`npm test` runs 72 tests in 12 files:
 
-## How to replace product images
+- unit tests for pricing, price formatting, search, every filter and sort, URL filter parsing, cart maths, saved data cleaning, recently viewed order, form validation and the catalog loader
+- DOM tests that render the whole app and use it like a person would: filtering and clearing, search suggestions, adding to the bag, quantity and stock limits, wishlist, product pages, the demo checkout (errors, loading, confirmation), loading and error states, the mobile menu and the 404 page
 
-1. Put your images inside `assets/images/`
-2. Name them `product-1.jpg`, `product-2.jpg` and so on (the number matches the product `id`)
-3. Or change the `image` path of any product in `js/products.js`
+## Deployment (Netlify)
 
-If an image file is missing, a grey placeholder is shown instead, so the page never looks broken.
+`netlify.toml` already holds the settings: build command `npm run build`, publish folder `dist`, and a redirect that sends every route to `index.html` so links like `/product/3` work on refresh. Connect the repository in Netlify and it builds on every push.
 
-## How to add products
+## Adding products
 
-Open `js/products.js` and add a new object at the end of the `products` array. Remember the comma after the previous product.
+Add an object to the `products` array in `public/data/products.json` and put the photo in `public/assets/images/`:
 
-```js
+```json
 {
-    id: 21,
-    name: "Nova Speaker Mini",
-    category: "Accessories",
-    price: 119.00,
-    discount: 0,
-    rating: 4.3,
-    stock: 20,
-    image: "assets/images/product-21.jpg",
-    description: "Small Bluetooth speaker with deep bass.",
-    featured: false
+  "id": 21,
+  "name": "Nova Speaker Mini",
+  "category": "Accessories",
+  "price": 119,
+  "discount": 0,
+  "rating": 4.3,
+  "stock": 20,
+  "image": "/assets/images/product-21.jpg",
+  "description": "Small Bluetooth speaker with deep bass.",
+  "featured": false
 }
 ```
 
-- `id` must be unique
-- `category` must match one of the names in the `categories` array exactly, including capital letters
-- `discount` is a percentage (0 means no discount)
-- The old price and the sale price are calculated automatically
-- Set `featured: true` to show the product in the featured section
+- `id` must be unique and `category` must match a name in `categories`
+- `discount` is a percentage; the sale price is calculated
+- `featured: true` puts the product in the editor's selection and the hero spotlight
+- Entries with missing fields are skipped instead of breaking the page; a missing image shows a placeholder
+
+## Design and history
+
+- [`docs/v2/UPGRADE.md`](docs/v2/UPGRADE.md): the React upgrade, technical decisions, test results and known limits, with before and after screenshots
+- [`docs/reskin/RESKIN.md`](docs/reskin/RESKIN.md): the current visual identity (palette, type, shapes)
+- [`docs/redesign/REDESIGN.md`](docs/redesign/REDESIGN.md): earlier redesign notes (its serif identity has since been replaced)
+
+The original vanilla HTML, CSS and JavaScript version is kept in the git history.
 
 ## Future improvements
 
-- Real backend and database
-- User login and registration
-- Real payment gateway
-- Product reviews
-- Order history page
-- Admin dashboard
-- Fetch products from an API
-- Rebuild the project with React
+- Real backend, accounts and order history
+- A real payment provider (in its test mode first)
+- Product reviews and more photos per product
+- Product data such as specs and release dates, so "new arrivals" and spec tables can be shown honestly
 
 ## Author
 
